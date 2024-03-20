@@ -71,6 +71,7 @@ function getComputerChoice() {
 function playRound(playerSelection, computerSelection) {
   if (playerSelection === computerSelection) {
     roundResult.textContent = "It was a draw!";
+    roundResult.style.color = "white";
     return;
   } else if (
     (playerSelection === "rock" && computerSelection === "scissors") ||
