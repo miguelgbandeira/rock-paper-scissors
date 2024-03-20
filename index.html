@@ -3,21 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Rock, Paper, Scissors</title>
+    <link href="https://fonts.cdnfonts.com/css/gamesome" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
     <script src="script.js" defer></script>
   </head>
   <body>
-    <div class="score">
-      <div class="player-score">Player: 0</div>
-      <div class="computer-score">Computer: 0</div>
+    <div class="header">Rock, Paper, Scissors</div>
+    <div class="result">First to score 5, wins</div>
+    <div class="choices">
+      <div class="player">
+        <div class="player-choice">?</div>
+        <div class="player-score">Player: 0</div>
+      </div>
+      <div class="computer">
+        <div class="computer-choice">?</div>
+        <div class="computer-score">Computer: 0</div>
+      </div>
     </div>
-    <div>
-      <button id="rock">Rock</button>
-      <button id="paper">Paper</button>
-      <button id="scissors">Scissors</button>
+    <div class="buttons">
+      <div class="buttons-label">Pick your play</div>
+      <div class="buttons-container">
+        <button id="rock">👊</button>
+        <button id="paper">✋</button>
+        <button id="scissors">✌️</button>
+      </div>
     </div>
-    <div class="result"></div>
-    <script src="script.js"></script>
+    <div class="footer">Copyright © 2024 miguelbandeira</div>
   </body>
 </html>

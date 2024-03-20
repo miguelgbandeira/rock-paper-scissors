@@ -4,6 +4,8 @@ const paper = document.querySelector("#paper");
 const roundResult = document.querySelector(".result");
 const playerScoreDiv = document.querySelector(".player-score");
 const computerScoreDiv = document.querySelector(".computer-score");
+const playerChoice = document.querySelector(".player-choice");
+const computerChoice = document.querySelector(".computer-choice");
 
 let playerScore = 0;
 let computerScore = 0;
@@ -21,12 +23,35 @@ scissors.addEventListener("click", () => {
 });
 
 function handleClick(playerSelection) {
-  playRound(playerSelection, getComputerChoice());
+  let computerSelection = getComputerChoice();
+  setPlayersChoices();
+  playRound(playerSelection, computerSelection);
   if (isGameFinished()) {
     roundResult.textContent = "Game Finished";
     roundResult.textContent = getWinner();
     resetGame();
     return;
+  }
+
+  function setPlayersChoices() {
+    let playerIcon = getIcon(playerSelection);
+    let computerIcon = getIcon(computerSelection);
+
+    playerChoice.textContent = playerIcon;
+    computerChoice.textContent = computerIcon;
+  }
+
+  function getIcon(selection) {
+    let icon;
+
+    if (selection === "rock") {
+      icon = "👊";
+    } else if (selection === "paper") {
+      icon = "✋";
+    } else if (selection === "scissors") {
+      icon = "✌️";
+    }
+    return icon;
   }
 }
 
@@ -53,11 +78,13 @@ function playRound(playerSelection, computerSelection) {
     (playerSelection === "scissors" && computerSelection === "paper")
   ) {
     roundResult.textContent = "You won!";
+    roundResult.style.color = "green";
     playerScore++;
     playerScoreDiv.textContent = `Player: ${playerScore}`;
     return;
   } else {
     roundResult.textContent = "You lost!";
+    roundResult.style.color = "red";
     computerScore++;
     computerScoreDiv.textContent = `Computer: ${computerScore}`;
     return;
