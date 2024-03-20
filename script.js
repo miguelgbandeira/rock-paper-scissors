@@ -9,17 +9,26 @@ let playerScore = 0;
 let computerScore = 0;
 
 rock.addEventListener("click", () => {
-  roundResult.textContent = "";
-  console.log(playRound("rock", getComputerChoice()));
+  handleClick("rock");
 });
 
 paper.addEventListener("click", () => {
-  console.log(playRound("paper", getComputerChoice()));
+  handleClick("paper");
 });
 
 scissors.addEventListener("click", () => {
-  console.log(playRound("scissors", getComputerChoice()));
+  handleClick("scissors");
 });
+
+function handleClick(playerSelection) {
+  playRound(playerSelection, getComputerChoice());
+  if (isGameFinished()) {
+    roundResult.textContent = "Game Finished";
+    roundResult.textContent = getWinner();
+    resetGame();
+    return;
+  }
+}
 
 function getComputerChoice() {
   const randomNumber = Math.floor(Math.random() * 3);
@@ -35,13 +44,9 @@ function getComputerChoice() {
 }
 
 function playRound(playerSelection, computerSelection) {
-  if (playerScore >= 5 || computerScore >= 5) {
-    roundResult.textContent = "Game Finished";
-    return;
-  }
   if (playerSelection === computerSelection) {
     roundResult.textContent = "It was a draw!";
-    return 2;
+    return;
   } else if (
     (playerSelection === "rock" && computerSelection === "scissors") ||
     (playerSelection === "paper" && computerSelection === "rock") ||
@@ -50,46 +55,32 @@ function playRound(playerSelection, computerSelection) {
     roundResult.textContent = "You won!";
     playerScore++;
     playerScoreDiv.textContent = `Player: ${playerScore}`;
-    return 0;
+    return;
   } else {
     roundResult.textContent = "You lost!";
     computerScore++;
     computerScoreDiv.textContent = `Computer: ${computerScore}`;
-    return 1;
+    return;
   }
 }
 
-function playGame(playerSelection) {
-  let playerScore = 0;
-  let computerScore = 0;
-
-  while (playerScore < 5 || computerScore < 5) {}
-
-  for (let i = 0; i < 5; i++) {
-    let result = playRound(playerSelection, getComputerChoice());
-    if (result == 0) {
-      playerScore++;
-    } else if (result == 1) {
-      computerScore++;
-    } else {
-      playerScore++;
-      computerScore++;
-    }
-  }
-
-  getWinner(playerScore, computerScore);
+function isGameFinished() {
+  return playerScore >= 5 || computerScore >= 5;
 }
 
-function getWinner(playerScore, computerScore) {
+function getWinner() {
   if (playerScore > computerScore) {
-    console.log(
-      `Player won! The result was ${playerScore} against ${computerScore}`
-    );
+    return `Player won! The result was ${playerScore} against ${computerScore}`;
   } else if (computerScore > playerScore) {
-    console.log(
-      `You lost. The computer won ${computerScore} against ${playerScore}`
-    );
+    return `You lost. The computer won ${computerScore} against ${playerScore}`;
   } else {
     console.log("It was a draw");
   }
+}
+
+function resetGame() {
+  playerScore = 0;
+  computerScore = 0;
+  computerScoreDiv.textContent = "Computer: 0";
+  playerScoreDiv.textContent = "Player: 0";
 }
